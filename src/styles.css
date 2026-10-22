@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: toggled via <html class="dark">. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-100 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  }
+
+  ::selection {
+    @apply bg-sky-500/30;
+  }
+
+  /* Slim, themed scrollbars (WebView2 / Chromium). */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-slate-300 dark:bg-slate-700;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400 dark:bg-slate-600;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex cursor-default select-none items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150 disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-sky-600 text-white shadow-sm hover:bg-sky-500 active:scale-[0.98];
+  }
+  .btn-outline {
+    @apply border border-slate-300 text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800;
+  }
+  .btn-ghost {
+    @apply text-slate-600 hover:bg-slate-200/70 dark:text-slate-300 dark:hover:bg-slate-800;
+  }
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-500 active:scale-[0.98];
+  }
+  .btn-sm {
+    @apply gap-1 rounded-md px-2.5 py-1.5 text-xs;
+  }
+
+  .icon-btn {
+    @apply inline-flex cursor-default items-center justify-center rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-200/70 hover:text-slate-800 dark:hover:bg-slate-800 dark:hover:text-slate-100;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100;
+  }
+  .field-label {
+    @apply mb-1 block text-xs font-medium text-slate-500;
+  }
+
+  .card {
+    @apply rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+
+  .seg {
+    @apply inline-flex items-center gap-0.5 rounded-lg bg-slate-200/70 p-0.5 dark:bg-slate-800;
+  }
+  .seg-item {
+    @apply cursor-default rounded-md px-2.5 py-1 text-sm font-medium text-slate-500 transition-colors hover:text-slate-800 dark:hover:text-slate-200;
+  }
+  .seg-item-active {
+    @apply bg-white text-sky-700 shadow-sm dark:bg-slate-700 dark:text-sky-300;
+  }
+}

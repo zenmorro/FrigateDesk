@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "FrigateDesk",
+  "version": "0.1.0",
+  "identifier": "com.frigatedesk.app",
+  "build": {
+    "beforeDevCommand": "npm run fetch:mpv && npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run fetch:mpv && npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "FrigateDesk",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 900,
+        "minHeight": 600,
+        "resizable": true,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "msi"],
+    "resources": {
+      "resources/mpv/mpv.exe": "mpv/mpv.exe"
+    },
+    "publisher": "FrigateDesk",
+    "category": "Utility",
+    "shortDescription": "Native Windows client for Frigate NVR",
+    "longDescription": "FrigateDesk is an open-source (GPLv3) native Windows desktop client for Frigate NVR, covering live view, recordings history, review & events, and notifications.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

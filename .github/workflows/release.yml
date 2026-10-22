@@ -1,0 +1,59 @@
+name: Release
+
+# Build the Windows installers (MSI + NSIS) and publish them as downloadable
+# assets on a GitHub Release. Trigger by pushing a version tag, e.g.:
+#
+#   git tag v0.1.0
+#   git push origin v0.1.0
+#
+# or run manually from the Actions tab (workflow_dispatch).
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      # mpv is fetched by beforeBuildCommand (scripts/fetch-mpv.ps1); 7-Zip is
+      # preinstalled on windows-latest runners.
+      - name: Build and release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "FrigateDesk ${{ github.ref_name }}"
+          releaseBody: |
+            Windows installers for FrigateDesk.
+
+            - **MSI** (`FrigateDesk_x.y.z_x64_en-US.msi`)
+            - **NSIS setup** (`FrigateDesk_x.y.z_x64-setup.exe`)
+
+            mpv is bundled; the end user installs nothing extra.
+          releaseDraft: true
+          prerelease: false

@@ -1,0 +1,38 @@
+{
+  "name": "frigatedesk",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Native Windows desktop client for Frigate NVR (live, history, review & events).",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "fetch:mpv": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/fetch-mpv.ps1",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-dialog": "^2",
+    "@tauri-apps/plugin-opener": "^2",
+    "lucide-react": "^0.456.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@tauri-apps/cli": "^2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^6.0.2",
+    "msw": "^2.6.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.16",
+    "vitest": "^2.1.0"
+  }
+}

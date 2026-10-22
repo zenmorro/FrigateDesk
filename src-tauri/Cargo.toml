@@ -1,0 +1,69 @@
+[package]
+name = "frigatedesk"
+version = "0.1.0"
+description = "Native Windows desktop client for Frigate NVR"
+authors = ["FrigateDesk contributors"]
+license = "GPL-3.0-or-later"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+# The `_lib` suffix avoids a name clash with the binary on Windows.
+name = "frigatedesk_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+url = "2"
+
+# HTTP client. rustls-tls avoids an OpenSSL build dependency on Windows.
+# `danger_accept_invalid_certs` (used for self-signed servers) is still honored.
+reqwest = { version = "0.12", default-features = false, features = [
+    "json",
+    "cookies",
+    "rustls-tls",
+    "stream",
+] }
+
+# Async runtime used by reqwest and the mpv IPC pipe.
+tokio = { version = "1", features = [
+    "rt-multi-thread",
+    "macros",
+    "net",
+    "io-util",
+    "sync",
+    "time",
+    "process",
+    "fs",
+] }
+
+# Windows Credential Manager (never store secrets in plaintext).
+keyring = { version = "3", features = ["windows-native"] }
+
+# Local authenticated reverse-proxy for the live view (injects JWT, handles
+# self-signed TLS) so the WebView can play go2rtc MSE/WebRTC same-origin.
+axum = { version = "0.7", features = ["ws"] }
+tokio-tungstenite = { version = "0.24", features = ["connect", "rustls-tls-native-roots"] }
+futures-util = "0.3"
+bytes = "1"
+rustls = { version = "0.23", default-features = false, features = ["ring", "std"] }
+
+[dev-dependencies]
+# In-process mock HTTP server for testing the Frigate API client.
+wiremock = "0.6"
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true
