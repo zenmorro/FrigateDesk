@@ -8,6 +8,9 @@ history, review & events, built to go beyond the existing *live-only* clients.
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 ![Platform: Windows](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D6?logo=windows)
 [![Download](https://img.shields.io/badge/download-latest%20release-0ea5e9)](https://github.com/zenmorro/FrigateDesk/releases/latest)
+![AI-assisted](https://img.shields.io/badge/built%20with-AI%20assistance-7c3aed)
+
+<sub>Developed with the assistance of AI (Anthropic's Claude) · see [Acknowledgements](#acknowledgements)</sub>
 
 </div>
 
@@ -175,6 +178,17 @@ release with the MSI + NSIS attached; review and publish it from the Releases ta
 - ⏳ Tray icon + start with Windows
 - ⏳ Sub/main stream selection, two-way audio (WebRTC)
 - ⏳ winget package
+
+## Acknowledgements
+
+FrigateDesk was developed **with the assistance of AI** (Anthropic's Claude, via Claude Code).
+AI was used to help design the architecture, write and review code, and produce documentation.
+All AI-assisted output was reviewed and tested before inclusion. Contributions — human or
+AI-assisted — are welcome.
+
+Built on top of the excellent [Frigate NVR](https://frigate.video/),
+[go2rtc](https://github.com/AlexxIT/go2rtc), [mpv](https://mpv.io/) and
+[Tauri](https://tauri.app/) projects.
 
 ## License
 
